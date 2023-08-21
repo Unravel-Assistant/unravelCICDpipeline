@@ -46,6 +46,7 @@ status = 'Failure'
 
 if ((bad_row_count.isnumeric()) and (int(bad_row_count) >0)):
     filepath = '/mnt/idf-config/' + config_file_path
+    df1=df.toPandas()
     df=spark.read.format('json').option("multiline","true").option('inferSchema','true').load(filepath,header =True).select("quarantine_path")
     df2=df.collect()[0][0]
     error_details = "The bad row count is :" + str(bad_row_count)+"\n" + "The quarantine path location is :" +str(df2)
