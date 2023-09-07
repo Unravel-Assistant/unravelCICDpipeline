@@ -36,6 +36,8 @@ df4=df4.withColumn("PreviousMonthDate",when ( col("PreviousMonthDate").isNull(),
 
 # COMMAND ----------
 
+df5 = df4.toCollect()[0][0]
+
 
 dwhStagingTable =None
 synapse_output_table = 'SS_BUKMI.Exec_Date'
