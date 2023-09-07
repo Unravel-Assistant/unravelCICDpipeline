@@ -5,6 +5,7 @@
 # MAGIC partitioned by (BatchID)
 # MAGIC location '/mnt/idf-reports/RPI_Reference/Curation/BadRowCount/';
 
+
 # COMMAND ----------
 
 from pyspark.sql.functions import col
