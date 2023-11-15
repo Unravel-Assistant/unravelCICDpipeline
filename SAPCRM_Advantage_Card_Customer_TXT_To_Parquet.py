@@ -97,7 +97,7 @@ for file in filelist1.split(","):
     #display(df2)
     df2.write.mode('append').format("parquet").save(tgtmountPoint+DestinationPath+"/"+RunDate+RunTime+"/")
   
-
+wlefl;wr
 # COMMAND ----------
 
 import os
