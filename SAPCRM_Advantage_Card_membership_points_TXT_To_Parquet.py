@@ -56,6 +56,7 @@ for file in filelist1.split(","):
     df2=spark.createDataFrame(df1,schema=dfSchema1)
     #display(df2)
     df2.write.mode('append').format("parquet").save(tgtmountPoint+DestinationPath+"/"+RunDate+RunTime+"/")
+    df_pk_1 = df.collect()[0][0]
   
 
 # COMMAND ----------
