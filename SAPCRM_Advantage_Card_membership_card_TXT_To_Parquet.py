@@ -2,6 +2,7 @@
 # MAGIC %md
 # MAGIC CONVERSION OF TEXT TO PARQUET
 
+
 # COMMAND ----------
 
 # MAGIC %sql
