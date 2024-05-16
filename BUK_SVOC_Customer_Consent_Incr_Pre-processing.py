@@ -22,6 +22,7 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 
+
 mountPoint='/mnt/idf-cleansed/'
 tgtmountPoint='/mnt/idf-curatestage/'
 first_row_is_header = "true"
