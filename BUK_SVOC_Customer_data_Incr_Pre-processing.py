@@ -1,3 +1,4 @@
+
 # Databricks notebook source
 # MAGIC %md
 # MAGIC select * from curate_standard.svoc_customer_data_incr -- order by rundatetime desc
