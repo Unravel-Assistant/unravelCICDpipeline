@@ -9,6 +9,8 @@ from pyspark.sql.functions import max,lit, col
 
 # COMMAND ----------
 
+print(df.collect())
+
 # MAGIC %run "../../Common/Upsert_to_Synapse"
 
 # COMMAND ----------
