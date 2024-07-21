@@ -5,7 +5,8 @@
 # MAGIC --ALTER TABLE delta.`/mnt/idf-curatestandard/BUKIT/BTCSVOC/BUK_SVOC_Customer_consent_Incr/BackUp` ADD columns (Source_Sent_Date string, Source_Sent_Time string);
 # MAGIC --describe delta.`/mnt/idf-curatestandard/BUKIT/BTCSVOC/BUK_SVOC_Customer_consent_Incr/BackUp`
 
-# COMMAND ----------
+# COMMAND ---------
+-
 
 # MAGIC %sql
 # MAGIC create widget text FileList default "";
