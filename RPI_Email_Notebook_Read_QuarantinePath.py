@@ -64,4 +64,5 @@ if ((bad_row_count.isnumeric()) and (int(bad_row_count) >0)):
     updatedDF=spark.createDataFrame(updatedvalue,schema=['BatchID','FeedID','EntityName','BadRowCount']).withColumn("BadRowCount",col("BadRowCount").cast('integer'))
     updatedDF.write.format("delta").mode("append").partitionBy("BatchID").saveAsTable("RPI_Reference_DB.Curation_BadRowCount")
 else:
-    dbutils.notebook.exit ('stop')  
+    dbutils.notebook.exit ('stop')
+    
