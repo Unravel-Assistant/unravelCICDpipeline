@@ -7,6 +7,7 @@
 
 # COMMAND ----------
 
+
 from pyspark.sql.functions import col
 import json
 from pyspark.sql.types import *
