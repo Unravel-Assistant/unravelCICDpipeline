@@ -739,7 +739,7 @@ def main():
     description = " ".join(raw_description.splitlines())
     description = re.sub(cleanRe, "", description)
     job_run_list = get_job_runs_from_description_as_text(pr_number, description)
-
+    job_names_list = description.split(",")
     # start and end TS
     today = datetime.today()
     endDT = datetime(
@@ -756,8 +756,8 @@ def main():
     print("end: " + end_time)
 
     job_run_result_list = []
-    for run in job_run_list:
-        job_id = get_jobid_from_job_name("AfterUnderUtilizedAutoScale")
+    for job_name in job_names_list:
+        job_id = get_jobid_from_job_name(job_name)
         print(job_id)
         gsp = get_gsp(job_id)
         print(gsp)
