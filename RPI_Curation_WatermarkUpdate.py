@@ -16,7 +16,7 @@ EntityName = dbutils.widgets.get("EntityName")
 dbutils.widgets.text("CurateADLS_LPT", "","")
 CurateADLS_LPT = dbutils.widgets.get("CurateADLS_LPT")
 
-dbutils.widgets.text("CurateSynapse_LPT", "","")
+dbutils.widgets.text("CurcccccateSynapse_LPT", "","")
 CurateSynapse_LPT = dbutils.widgets.get("CurateSynapse_LPT")
 
 dbutils.widgets.text("BatchID", "","")
