@@ -83,7 +83,7 @@ def check_response_on_get(json_val):
         
 def get_gsp(job_id):
 
-    url = unravel_url
+    url = f"{unravel_url}/api/v1/dbworkflows/api/v1/databricks/runs"
 
     payload = json.dumps({
     "appStatus": [
@@ -125,7 +125,8 @@ def get_gsp(job_id):
 def get_jobid_from_job_name(job_name):
 
 
-    url = unravel_url
+    url = f"{unravel_url}/api/v1/ds/api/v1/databricks/jobs/search"
+
 
     payload = json.dumps({
     "start_time": 1730221797420,
