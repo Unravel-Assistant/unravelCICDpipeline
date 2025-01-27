@@ -133,7 +133,7 @@ def get_jobid_from_job_name(job_name):
     })
     headers={"Authorization": unravel_token,   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
 
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, verify=False)
     print(response.status_code, response.text)
     return response.json()[0]['value']
 
