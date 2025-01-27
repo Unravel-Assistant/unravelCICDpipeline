@@ -83,7 +83,7 @@ def check_response_on_get(json_val):
         
 def get_gsp(job_id):
 
-    url = unravel_url
+    url = f"{unravel_url}/api/v1/dbworkflows/api/v1/databricks/runs"
 
     payload = json.dumps({
     "appStatus": [
@@ -114,7 +114,8 @@ def get_gsp(job_id):
         job_id
     ]
     })
-    headers={"Authorization": unravel_token,   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
+    headers={"Authorization": unravel_token, "Origin": unravel_url,      "Content-Type": "application/json",
+    "Accept": "application/json, text/plain, */*",  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
 
     response = requests.request("POST", url, headers=headers, data=payload, verify=False)
 
@@ -124,17 +125,19 @@ def get_gsp(job_id):
 def get_jobid_from_job_name(job_name):
 
 
-    url = unravel_url
+    url = f"{unravel_url}/api/v1/ds/api/v1/databricks/jobs/search"
+
 
     payload = json.dumps({
     "start_time": 1730221797420,
     "end_time": 1737997797420,
     "search": job_name
     })
-    headers={"Authorization": unravel_token,   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
+    headers={"Authorization": unravel_token, "Origin": unravel_url,      "Content-Type": "application/json",
+    "Accept": "application/json, text/plain, */*",  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
 
-    response = requests.request("POST", url, headers=headers, data=payload)
-
+    response = requests.request("POST", url, headers=headers, data=payload, verify=False)
+    print(response.status_code, response.text)
     return response.json()[0]['value']
 
 
