@@ -739,7 +739,7 @@ def main():
     description = " ".join(raw_description.splitlines())
     description = re.sub(cleanRe, "", description)
     job_run_list = get_job_runs_from_description_as_text(pr_number, description)
-    job_names_list = description.split(",")
+    job_names_list = [job.strip() for job in description.split(",")]
     # start and end TS
     today = datetime.today()
     endDT = datetime(
@@ -757,6 +757,7 @@ def main():
 
     job_run_result_list = []
     for job_name in job_names_list:
+        print(job_name)
         job_id = get_jobid_from_job_name(job_name)
         print(job_id)
         gsp = get_gsp(job_id)
