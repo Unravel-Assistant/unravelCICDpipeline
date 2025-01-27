@@ -114,7 +114,8 @@ def get_gsp(job_id):
         job_id
     ]
     })
-    headers={"Authorization": unravel_token,   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
+    headers={"Authorization": unravel_token, "Origin": unravel_url,      "Content-Type": "application/json",
+    "Accept": "application/json, text/plain, */*",  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
 
     response = requests.request("POST", url, headers=headers, data=payload, verify=False)
 
@@ -131,7 +132,8 @@ def get_jobid_from_job_name(job_name):
     "end_time": 1737997797420,
     "search": job_name
     })
-    headers={"Authorization": unravel_token,   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
+    headers={"Authorization": unravel_token, "Origin": unravel_url,      "Content-Type": "application/json",
+    "Accept": "application/json, text/plain, */*",  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'}
 
     response = requests.request("POST", url, headers=headers, data=payload, verify=False)
     print(response.status_code, response.text)
