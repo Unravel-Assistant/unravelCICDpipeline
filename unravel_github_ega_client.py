@@ -761,6 +761,13 @@ def main():
         print(job_id)
         gsp = get_gsp(job_id)
         print(gsp)
+        gsp_split = gsp.split("_")
+        run = {
+                    "pr_id": pr_number,
+                    "workspace_id": gsp_split[0],
+                    "job_id": gsp_split[1],
+                    "run_id": gsp_split[2],
+                }
         job_runs_json = search_summary_by_globalsearchpattern(
             unravel_url, unravel_token, start_time, end_time, gsp
         )
