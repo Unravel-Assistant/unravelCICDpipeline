@@ -1,4 +1,4 @@
-# Databricks notebook source
+ # Databricks notebook source
 # MAGIC %md
 # MAGIC select * from curate_standard.svoc_customer_data_incr -- order by rundatetime desc
 # MAGIC --ALTER TABLE curate_standard.svoc_customer_data_incr ADD columns (Source_Sent_Date string, Source_Sent_Time string);
