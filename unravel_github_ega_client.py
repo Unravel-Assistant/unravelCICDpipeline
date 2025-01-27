@@ -11,6 +11,8 @@ import html
 from jira import JIRA
 from bs4 import BeautifulSoup
 import markdown
+from datetime import datetime, timedelta, timezone
+import pytz
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 http = urllib3.PoolManager(cert_reqs='CERT_NONE')
@@ -66,6 +68,48 @@ file_code_map['df.toPandas()'] = 'toPandas() moves all the data to driver to con
 file_code_map['df.collect()'] = 'Avoid collecting all the data if we require only few rows of dataframe..\n\n Instead use this statement df.take(n)'
 
 
+def calculate_dates(days):
+    """
+    Takes number of days as input and returns the following:
+    - Start and end times in ISO 8601 format with timezone offset.
+    - Start and end times in Unix timestamp format.
+    
+    Args:
+        days (int): Number of days for the date range.
+
+    Returns:
+        dict: A dictionary containing ISO 8601 and Unix timestamps for start and end times.
+    """
+    # Current date and time with timezone
+    now = datetime.now(pytz.timezone('Asia/Kolkata'))
+
+    # Calculate start and end times
+    start_time = now - timedelta(days=days)
+    end_time = now
+
+    # Format as ISO 8601 with timezone
+    iso_start = start_time.isoformat()
+    iso_end = end_time.isoformat()
+
+    # Convert to Unix timestamp (milliseconds)
+    unix_start = int(start_time.timestamp() * 1000)
+    unix_end = int(end_time.timestamp() * 1000)
+
+    return {
+        "iso_start": iso_start,
+        "iso_end": iso_end,
+        "unix_start": unix_start,
+        "unix_end": unix_end
+    }
+
+
+days = 30
+result = calculate_dates(days)
+print("Start Time (ISO 8601):", result["iso_start"])
+print("End Time (ISO 8601):", result["iso_end"])
+print("Start Time (Unix):", result["unix_start"])
+print("End Time (Unix):", result["unix_end"])
+
 
 # %%
 def get_api(api_url, api_token):
@@ -98,8 +142,8 @@ def get_gsp(job_id):
     "appTypes": [
         "db"
     ],
-    "start_time": "2024-10-30T22:39:57+05:30",
-    "end_time": "2025-01-27T22:39:57+05:30",
+    "start_time": result["iso_start"],
+    "end_time": result["iso_end"],
     "from": 0,
     "sort": [
         {
@@ -129,8 +173,8 @@ def get_jobid_from_job_name(job_name):
 
 
     payload = json.dumps({
-    "start_time": 1730221797420,
-    "end_time": 1737997797420,
+    "start_time": result["unix_start"],
+    "end_time": result["unix_end"],
     "search": job_name
     })
     headers={"Authorization": unravel_token, "Origin": unravel_url,      "Content-Type": "application/json",
