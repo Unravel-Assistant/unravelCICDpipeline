@@ -163,7 +163,7 @@ def get_gsp(job_id):
 
     response = requests.request("POST", url, headers=headers, data=payload, verify=False)
 
-    return response.json()['results'][0]['id']
+    return response.json()['results']
 
 
 def get_jobid_from_job_name(job_name):
