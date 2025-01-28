@@ -778,7 +778,7 @@ def main():
         for job_id in job_ids:
             gsp_out_data = get_gsp(job_id['value'])
             
-            gsp = next((gsp_data['id'] for gsp_data in gsp_out_data if gsp_data['queue'] == workspace), None)
+            gsp = next((gsp_data['id'] for gsp_data in gsp_out_data if gsp_data['queue'] == workspace_name), None)
             
             if gsp:
                 # Proceed further since a valid GSP has been found
