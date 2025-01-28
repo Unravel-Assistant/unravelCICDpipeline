@@ -182,7 +182,7 @@ def get_jobid_from_job_name(job_name):
 
     response = requests.request("POST", url, headers=headers, data=payload, verify=False)
     print(response.status_code, response.text)
-    return response.json()[0]['value']
+    return response.json()
 
 
 
@@ -726,6 +726,17 @@ def create_es_document(gsp, cluster_name, cluster_uid, job):
     document['job'] = job
     return document
 
+def parse_pr_description(description):
+    job_pattern = r"(?<=\*\*Job Name:\*\*\s)(.*)"
+    workspace_pattern = r"(?<=\*\*Workspace Name:\*\*\s)(.*)"
+    
+    job_name_match = re.search(job_pattern, description)
+    workspace_name_match = re.search(workspace_pattern, description)
+    
+    job_name = job_name_match.group(1).strip() if job_name_match else None
+    workspace_name = workspace_name_match.group(1).strip() if workspace_name_match else None
+    
+    return job_name, workspace_name
 
 # %%
 def main():
@@ -739,7 +750,9 @@ def main():
     description = " ".join(raw_description.splitlines())
     description = re.sub(cleanRe, "", description)
     job_run_list = get_job_runs_from_description_as_text(pr_number, description)
-    job_names_list = [job.strip() for job in description.split(",")]
+    job_names_list, workspace_name = parse_pr_description(raw_description)
+    print(job_names_list, workspace_name)
+    job_names_list = [job_names_list]
     # start and end TS
     today = datetime.today()
     endDT = datetime(
@@ -756,12 +769,25 @@ def main():
     print("end: " + end_time)
 
     job_run_result_list = []
+    gsp = None
     for job_name in job_names_list:
         print(job_name)
-        job_id = get_jobid_from_job_name(job_name)
-        print(job_id)
-        gsp = get_gsp(job_id)
-        print(gsp)
+        job_ids = get_jobid_from_job_name(job_name)
+    
+        # Filter GSP by queue matching the workspace
+        for job_id in job_ids:
+            gsp_out_data = get_gsp(job_id['value'])
+            
+            gsp = next((gsp_data['id'] for gsp_data in gsp_out_data if gsp_data['queue'] == workspace), None)
+            
+            if gsp:
+                # Proceed further since a valid GSP has been found
+                print(f"GSP Found: {gsp}")
+                break  # Exit the job_id loop as we already found the required GSP
+
+        if not gsp:
+            print("Workspace or jobid not fund !!")
+            sys.exit(0)
         gsp_split = gsp.split("_")
         run = {
                     "pr_id": pr_number,
